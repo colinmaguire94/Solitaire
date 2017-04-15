@@ -20,13 +20,15 @@ public class Card : MonoBehaviour{
         cardSuit = Suit.NONE;
         cardNum = Number.NONE;
         cardIndex = -1;
+        cardPlacement = placement.DECK;
     }
 
-    public void setCard(Suit s, Number n, int i)
+    public void setCard(Suit s, Number n, int i, placement p)
     {
         cardSuit = s;
         cardNum = n;
         cardIndex = i;
+        cardPlacement = p;
     }
 
     public bool CheckCardSuit(Suit s)

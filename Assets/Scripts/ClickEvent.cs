@@ -5,12 +5,14 @@ using UnityEngine;
 public class ClickEvent : MonoBehaviour {
 
     private Deck deck;
+    private GameHandler gh;
 
-
-    private bool mouseUsed = false;
+    private bool mouseUsed;
 	// Use this for initialization
 	void Start () {
+        mouseUsed = false;
         deck = GetComponent<Deck>();
+        gh = FindObjectOfType<GameHandler>();
 	}
 	
 	// Update is called once per frame
@@ -44,23 +46,23 @@ public class ClickEvent : MonoBehaviour {
                     if (this.transform.parent.name == "Deck")
                     {
                         //deck.deckSpot[deck.nextCard].isFlipped = true;
-                        GameObject.FindObjectOfType<GameHandler>().flipCard();
+                        gh.flipCard();
                     }
                     else if (this.transform.parent.name.Contains("Spot"))
                     {
-                        if (GameObject.FindObjectOfType<GameHandler>().getSelectedCard() == null)
+                        if (gh.getSelectedCard() == null)
                         {
-                            GameObject.FindObjectOfType<GameHandler>().setSelectedCard(this.GetComponent<Card>());
+                            gh.setSelectedCard(this.gameObject);
                         }
                         else
                         {
-                            GameObject.FindObjectOfType<GameHandler>().checkCard(this.GetComponent<Card>(), this.transform.parent.name);
+                            gh.checkCard(this.gameObject);
                         }
                         //if(this.GetComponent<Card>().CheckCardSuit(this.GetComponent<Card>().cardSuit))
                     }
                     else if (this.transform.parent.name == "Flipped Cards")
                     {
-                        GameObject.FindObjectOfType<GameHandler>().setSelectedCard(this.GetComponent<Card>());
+                        gh.setSelectedCard(this.gameObject);
                     }
                 }
             }

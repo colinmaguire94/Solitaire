@@ -19,7 +19,7 @@ public class GameHandler : MonoBehaviour {
     private CardPile deckPile = new CardPile();
     private CardPile flipedCardsPile = new CardPile();
 
-    public Card selectedCard;
+    public GameObject selectedCard;
 	// Use this for initialization
 
     void Awake()
@@ -62,7 +62,7 @@ public class GameHandler : MonoBehaviour {
         cardGO.name = deckPile.getFirstCard().cardSuit + ", " + deckPile.getFirstCard().cardNum;
         cardGO.GetComponent<Image>().sprite = cs.cardSprite[deckPile.getFirstCard().cardIndex];
         flipedCardsPile.addCard(deckPile.getFirstCard());
-        cardGO.GetComponent<Card>().setCard(flipedCardsPile.getFirstCard().cardSuit, flipedCardsPile.getFirstCard().cardNum, flipedCardsPile.getFirstCard().cardIndex);
+        cardGO.GetComponent<Card>().setCard(flipedCardsPile.getFirstCard().cardSuit, flipedCardsPile.getFirstCard().cardNum, flipedCardsPile.getFirstCard().cardIndex, Card.placement.FLIPPED);
         deckPile.removeCard(deckPile.getFirstCard());        
     }
 
@@ -81,7 +81,7 @@ public class GameHandler : MonoBehaviour {
 
                 RowsPile[x].addCard(deckPile.getFirstCard());
                 cardGO.name = RowsPile[x].getLastCard().cardSuit + ", " + RowsPile[x].getLastCard().cardNum;
-                cardGO.GetComponent<Card>().setCard(RowsPile[x].getLastCard().cardSuit, RowsPile[x].getLastCard().cardNum, RowsPile[x].getLastCard().cardIndex);
+                cardGO.GetComponent<Card>().setCard(RowsPile[x].getLastCard().cardSuit, RowsPile[x].getLastCard().cardNum, RowsPile[x].getLastCard().cardIndex, Card.placement.ROW);
                 RowsPile[x].row = true;
                 deckPile.removeCard(deckPile.getFirstCard());
             }
@@ -93,30 +93,33 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
-    public void checkCard(Card c, string name)
+    public void checkCard(GameObject go)
     {
         //Debug.Log(c.CheckCardSuit(selectedCard.cardSuit));
-        if(c.CheckCardSuit(selectedCard.cardSuit))
+        if(!go.GetComponent<Card>().CheckCardSuit(selectedCard.GetComponent<Card>().cardSuit))
         {
             for(int i = 0; i < 7; i++)
             {
-                if(Rows[i].name == name)
+                if(Rows[i].name == go.transform.parent.name)
                 {
-
+                    selectedCard.transform.position = new Vector3(Rows[i].transform.position.x, Rows[i].transform.position.y - 30.0f, Rows[i].transform.position.z);
+                    selectedCard.transform.parent = go.transform.parent;
+                    RowsPile[i].addCard(flipedCardsPile.getLastCard());
+                    flipedCardsPile.removeCard(flipedCardsPile.getLastCard());
                 }
             }
         }
 
-        selectedCard = null;
+        //selectedCard = null;
     }
 
-    public void setSelectedCard(Card c)
+    public void setSelectedCard(GameObject go)
     {
-        selectedCard = c;
+        selectedCard = go;
     }
 
     public Card getSelectedCard()
     {
-        return selectedCard;
+        return selectedCard.GetComponent<Card>();
     }
 }
