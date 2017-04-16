@@ -49,7 +49,9 @@ public class Deck : MonoBehaviour {
         {
             for (int i = 0; i < 52; i++)
             {
-                Random.InitState(Random.Range(Random.Range(1, 100), Random.Range(1, 100)));
+                //Random.Range(1, 100), Random.Range(1, 100)
+                Random.Range(Random.Range(Random.Range(Random.Range(1, 100), Random.Range(1, 100)), Random.Range(Random.Range(1, 100), Random.Range(1, 100))), 
+                    Random.Range(Random.Range(Random.Range(1, 100), Random.Range(1, 100)), Random.Range(Random.Range(1, 100), Random.Range(1, 100))));
                 int x = Random.Range(0, 51);
                 int y = Random.Range(0, 51);
 
