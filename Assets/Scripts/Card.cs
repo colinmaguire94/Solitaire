@@ -31,40 +31,34 @@ public class Card : MonoBehaviour{
         cardPlacement = p;
     }
 
-    public bool CheckCardSuit(Suit s)
+    public bool checkRow(Card c)
     {
-        if (cardSuit == s)
+        if (cardSuit == c.cardSuit)
         {
             return true;
         }
-        else if (cardSuit == Suit.CLUB && s == Suit.SPADE)
+        else if (cardSuit == Suit.CLUB && c.cardSuit == Suit.SPADE)
         {
             return true;
         }
-        else if (cardSuit == Suit.SPADE && s == Suit.CLUB)
+        else if (cardSuit == Suit.SPADE && c.cardSuit == Suit.CLUB)
         {
             return true;
         }
-        else if (cardSuit == Suit.HEART && s == Suit.DIAMOND)
+        else if (cardSuit == Suit.HEART && c.cardSuit == Suit.DIAMOND)
         {
             return true;
         }
-        else if (cardSuit == Suit.DIAMOND && s == Suit.HEART)
+        else if (cardSuit == Suit.DIAMOND && c.cardSuit == Suit.HEART)
         {
             return true;
         }
         else
-        {   
-            return false;
+        {
+            if ((int)c.cardNum + 1 == (int)cardNum)
+                return false;
+            else
+                return true;
         }
-    }
-
-    public bool checkCardNum(Number num)
-    {
-        Debug.Log((int)num + " ," + (int)cardNum);
-        if ((int)num + 1 == (int)cardNum)
-            return false;
-        else
-            return true;
     }
 }
