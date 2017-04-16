@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour{
 
-    public enum Suit { SPADE, HEART, DIAMOND, CLUB, NONE };
+    public enum Suit { SPADE, DIAMOND, HEART, CLUB, NONE };
     public enum Number { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, NONE };
     public enum placement { DECK, FLIPPED, ACE, ROW, NONE };
 
@@ -54,8 +54,17 @@ public class Card : MonoBehaviour{
             return true;
         }
         else
-        {
+        {   
             return false;
         }
+    }
+
+    public bool checkCardNum(Number num)
+    {
+        Debug.Log((int)num + " ," + (int)cardNum);
+        if ((int)num + 1 == (int)cardNum)
+            return false;
+        else
+            return true;
     }
 }
