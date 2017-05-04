@@ -46,6 +46,10 @@ public class ClickEvent : MonoBehaviour {
                     if (this.transform.parent.name == "Deck")
                     {
                         //deck.deckSpot[deck.nextCard].isFlipped = true;
+                        if (this.transform.name == "Image")
+                        {
+                            gh.resetDeck();
+                        }
                         gh.flipCard();
                     }
                     else if (this.transform.parent.name.Contains("Spot"))
@@ -63,6 +67,13 @@ public class ClickEvent : MonoBehaviour {
                     else if (this.transform.parent.name == "Flipped Cards")
                     {
                         gh.setSelectedCard(this.gameObject);
+                    }
+                    else if (this.transform.parent.name.Contains("Ace"))
+                    {
+                        if(this.transform.name == "Image")
+                        {
+                            gh.addAce(this.transform.gameObject);
+                        }
                     }
                 }
             }

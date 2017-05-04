@@ -35,30 +35,45 @@ public class Card : MonoBehaviour{
     {
         if (cardSuit == c.cardSuit)
         {
-            return true;
+            return false;
         }
         else if (cardSuit == Suit.CLUB && c.cardSuit == Suit.SPADE)
         {
-            return true;
+            return false;
         }
         else if (cardSuit == Suit.SPADE && c.cardSuit == Suit.CLUB)
         {
-            return true;
+            return false;
         }
         else if (cardSuit == Suit.HEART && c.cardSuit == Suit.DIAMOND)
         {
-            return true;
+            return false;
         }
         else if (cardSuit == Suit.DIAMOND && c.cardSuit == Suit.HEART)
         {
-            return true;
+            return false;
         }
         else
         {
             if ((int)c.cardNum + 1 == (int)cardNum)
-                return false;
-            else
                 return true;
+            else
+                return false;
+        }
+    }
+
+    public bool checkAce(Card c)
+    {
+        if (cardSuit != c.cardSuit)
+        {
+            return false;
+        }
+        else
+        {
+            if ((int)c.cardNum - 1 == (int)cardNum)
+                return true;
+            else
+                return false;
         }
     }
 }

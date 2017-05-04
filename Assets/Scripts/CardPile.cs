@@ -41,4 +41,24 @@ public class CardPile{
     {
         return cardsInPile.Count;
     }
+
+    
+    public int getCardIndex(Card c)
+    {
+        //Work around, as the function always gave back a 0, now gives back the correct index.
+        int x = -1;
+
+        for(int i = 0; i < cardsInPile.Count; i++)
+        {
+            if (cardsInPile[i].cardIndex == c.cardIndex)
+                x = i;
+        }
+
+        return x;
+    }
+
+    public void removeCard(int i)
+    {
+        cardsInPile.RemoveAt(i);
+    }
 }

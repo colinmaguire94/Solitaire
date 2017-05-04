@@ -62,12 +62,6 @@ public class Deck : MonoBehaviour {
             }
             f--;
         } while (f != 0);
-
-        for(int i = 0; i <51; i++)
-        {
-            if (i == deckSpot[i].cardIndex)
-                Debug.Log(i);
-        }
     }
 
     public int getNextCardIndex()
