@@ -74,6 +74,10 @@ public class ClickEvent : MonoBehaviour {
                         {
                             gh.addAce(this.transform.gameObject);
                         }
+                        else
+                        {
+
+                        }
                     }
                 }
             }

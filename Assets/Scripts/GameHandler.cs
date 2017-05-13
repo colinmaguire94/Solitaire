@@ -26,6 +26,8 @@ public class GameHandler : MonoBehaviour {
     private CardPile flipedCardsPile = new CardPile();
 
     public GameObject selectedCard;
+
+    public int cap;
 	// Use this for initialization
 
     void Awake()
@@ -38,6 +40,8 @@ public class GameHandler : MonoBehaviour {
         {
             AcesPile[i] = new CardPile();
         }
+
+        selectedCard = null;
     }
 
 	void Start () {
@@ -58,6 +62,7 @@ public class GameHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        cap = RowsPile[6].getCapacity();
         if(deckPile.getCapacity() == 0)
         {
             for(int i = 0; i < Deck.transform.childCount; i++)
@@ -87,6 +92,11 @@ public class GameHandler : MonoBehaviour {
                     Deck.transform.GetChild(i).GetComponent<ClickEvent>().enabled = true;
                 }
             }
+        }
+
+        if(RowsPile[6].getCapacity() > 7)
+        {
+            Debug.Log("over");
         }
 	}
 
@@ -142,6 +152,7 @@ public class GameHandler : MonoBehaviour {
 
     public void checkCard(GameObject go)
     {
+        bool canChange = false;
         if (go.GetComponent<Card>().cardPlacement == Card.placement.ROW)
         {
             if (go.GetComponent<Card>().checkRow(selectedCard.GetComponent<Card>()))
@@ -153,10 +164,13 @@ public class GameHandler : MonoBehaviour {
                         selectedCard.transform.position = new Vector3(Rows[i].transform.position.x, Rows[i].transform.position.y - 30.0f, Rows[i].transform.position.z);
                         selectedCard.transform.SetParent(go.transform.parent);
                         selectedCard.GetComponent<Card>().cardPlacement = Card.placement.ROW;
-                        RowsPile[i].addCard(flipedCardsPile.getLastCard());
-                        flipedCardsPile.removeCard(flipedCardsPile.getLastCard());
+                        Card c = flipedCardsPile.getLastCard();
+                        RowsPile[i].addCard(c);
+                        int x = flipedCardsPile.getCardIndex(c);
+                        flipedCardsPile.removeCard(x);
                     }
                 }
+                canChange = true;
             }
         }
         else if (go.GetComponent<Card>().cardPlacement == Card.placement.ACE)
@@ -172,6 +186,11 @@ public class GameHandler : MonoBehaviour {
                 }
             }
         }
+
+        //if(!canChange)
+        //{
+        //    selectedCard = go;
+        //}
         //selectedCard = null;
     }
 
@@ -194,8 +213,8 @@ public class GameHandler : MonoBehaviour {
         selectedCard = go;
     }
 
-    public Card getSelectedCard()
+    public GameObject getSelectedCard()
     {
-        return selectedCard.GetComponent<Card>();
+        return selectedCard;
     }
 }

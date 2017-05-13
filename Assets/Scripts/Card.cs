@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour{
 
-    public enum Suit { SPADE, DIAMOND, HEART, CLUB, NONE };
+    public enum Suit { CLUB, DIAMOND, HEART, SPADE, NONE };
     public enum Number { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, NONE };
     public enum placement { DECK, FLIPPED, ACE, ROW, NONE };
 
