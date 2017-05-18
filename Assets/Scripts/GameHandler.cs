@@ -11,27 +11,32 @@ public class GameHandler : MonoBehaviour {
      * Check victory condition.
      */
 
+    //Public variables for gameobjects.
     public GameObject Deck;
     public GameObject FlippedCards;
     public GameObject[] Aces;
     public GameObject[] Rows;
     public GameObject card;
+    //Variables for two scripts.
     public CardSprite cs;
     private Deck deckScript;
 
-
+    //Vairables for piles.
     private CardPile[] AcesPile = new CardPile[4];
     private CardPile[] RowsPile = new CardPile[7];
     public CardPile deckPile = new CardPile();
     private CardPile flipedCardsPile = new CardPile();
 
+    //Gameobject for the selected card to debug with.
     public GameObject selectedCard;
 
+    //Variable for debugging a bug.
     public int cap;
 	// Use this for initialization
 
     void Awake()
     {
+        //Sets the cardpiles class when the game starts.
         for(int i = 0; i < 7; i++)
         {
             RowsPile[i] = new CardPile();
@@ -41,28 +46,36 @@ public class GameHandler : MonoBehaviour {
             AcesPile[i] = new CardPile();
         }
 
+        //Sets the selectedcard to null.
         selectedCard = null;
     }
 
 	void Start () {
+        //Creates a game objects for the deck upside down. 
         GameObject cardGO;
         cardGO = Instantiate(card, Deck.transform.position, Deck.transform.rotation, Deck.transform);
         cardGO.GetComponent<Image>().sprite = cs.cardSprite[52];
 
+        //Gets the deck script from the deck gameobject.
         deckScript = GetComponent<Deck>();
 
+        //Adds the cards to the deck pile that are in the deck.
         for(int i = 0; i < 52; i++)
         {
             deckPile.addCard(deckScript.deckSpot[i]);
         }
 
+        //Deals the cards.
         dealCards();
         //Debug.Log(deckScript.deckSpot[0].cardNum + ", " + deckScript.deckSpot[0].cardSuit);
     }
 	
 	// Update is called once per frame
 	void Update () {
+        //For debugging purposes.
         cap = RowsPile[6].getCapacity();
+
+        //Checks to see if the deckpile is empty, makes the flipped over card disappear if so.
         if(deckPile.getCapacity() == 0)
         {
             for(int i = 0; i < Deck.transform.childCount; i++)
@@ -94,12 +107,14 @@ public class GameHandler : MonoBehaviour {
             }
         }
 
+        //Debugging purposes.
         if(RowsPile[6].getCapacity() > 7)
         {
             Debug.Log("over");
         }
 	}
 
+    //Function to flip the card from the deckpile.
     public void flipCard()
     {
         GameObject cardGO;
@@ -111,6 +126,7 @@ public class GameHandler : MonoBehaviour {
         deckPile.removeCard(deckPile.getFirstCard());        
     }
 
+    //Resets the deck back to all the cards in the flipped pile.
     public void resetDeck()
     {
         //Reseting the deck with the flipped cards.
@@ -128,6 +144,7 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
+    //Deals the cards out to the rows.
     public void dealCards()
     {
         for(int i = 0; i < 7; i++)
@@ -150,6 +167,7 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
+    //Checks if a card can be placed in the row, if so, it places it.
     public void checkCard(GameObject go)
     {
         bool canChange = false;

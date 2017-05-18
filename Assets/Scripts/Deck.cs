@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour {
 
+    //Array of the card class.
     public Card[] deckSpot = new Card[52];
     public int nextCard = 0;
+    //Boolean function to check if the cards are loaded.
     public bool loaded;
 
+    //Creates each card when the game starts up.
     void Awake()
     {
         for(int i = 0; i < 52; i++)
@@ -31,17 +34,7 @@ public class Deck : MonoBehaviour {
         loaded = true;
     }
 
-	// Use this for initialization
-	void Start () {
-        
-        //Debug.Log(deckSpot[0].cardNum + ", " + deckSpot[0].cardSuit);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    //A shuffle function to shuffle the deck.
     void Shuffle()
     {
         int f = 4;
@@ -50,26 +43,33 @@ public class Deck : MonoBehaviour {
             for (int i = 0; i < 52; i++)
             {
                 //Random.Range(1, 100), Random.Range(1, 100)
+                //A random number generator that is trying to be as different as possible, since random number generators are not as random.
                 Random.Range(Random.Range(Random.Range(Random.Range(1, 100), Random.Range(1, 100)), Random.Range(Random.Range(1, 100), Random.Range(1, 100))), 
                     Random.Range(Random.Range(Random.Range(1, 100), Random.Range(1, 100)), Random.Range(Random.Range(1, 100), Random.Range(1, 100))));
-                int x = Random.Range(0, 51);
+                //Picks a random cards.
                 int y = Random.Range(0, 51);
 
+                //Creates a temp card to make keep that card.
                 Card temp = deckSpot[i];
 
+                //Swaps card at I with Y.
                 deckSpot[i] = deckSpot[y];
+                //Swaps card at Y with I.
                 deckSpot[y] = temp;
             }
+            //Does this loop four times, to try and make sure each card is switched multiple times.
             f--;
         } while (f != 0);
     }
 
+    //Gets the index of the next card in the deck.
     public int getNextCardIndex()
     {
         nextCard++;
         return deckSpot[nextCard - 1].cardIndex;
     }
 
+    //Returns the card of the next card in the deck.
     public Card getNextCard()
     {
         nextCard++;
